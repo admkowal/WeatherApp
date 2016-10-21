@@ -9,17 +9,19 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
-import { fetchWeather } from '../actions';
+import { fetchCurrentWeather, fetchForecastWeather } from '../actions';
 
 
-const SearchBar = ({ fetchWeather }) => {
+const SearchBar = ({ fetchCurrentWeather, fetchForecastWeather }) => {
 
     let inputTerm = "";
 
     const onInputChange = (e) => inputTerm = e.target.value;
 
-    const onSubmit = (e) => fetchWeather(inputTerm);
-
+    const onSubmit = () => {
+        fetchCurrentWeather(inputTerm);
+        fetchForecastWeather(inputTerm);
+    }
 
 	return (
 		<div>
@@ -46,7 +48,7 @@ const SearchBar = ({ fetchWeather }) => {
 };
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchWeather }, dispatch);
+  return bindActionCreators({ fetchCurrentWeather, fetchForecastWeather }, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(SearchBar);
